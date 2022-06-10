@@ -1,6 +1,16 @@
 require 'pg'
 
 class Bookmark
+  def self.create(url:)
+    if ENV['ENVIRONMENT'] == 'test'
+      connection = PG.connect(dbname: 'bookmark_manager_test')
+    else
+      connection = PG.connect(dbname: 'bookmark_manager')
+    end
+
+    connection.exec("INSERT INTO bookmarks (url) VALUES('#{url}')")
+  end
+
   def self.all
     if ENV['ENVIRONMENT'] == 'test'
       connection = PG.connect(dbname: 'bookmark_manager_test')
@@ -12,6 +22,8 @@ class Bookmark
     result.map { |bookmark| bookmark['url'] }
   end
 end
+
+
   #   [
   #     "http://www.makersacademy.com",
   #     "http://www.destroyallsoftware.com",
