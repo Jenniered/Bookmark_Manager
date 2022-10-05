@@ -3,6 +3,7 @@ require 'sinatra/reloader'
 require 'sinatra/flash'
 require './lib/bookmark'
 require_relative './lib/comment'
+require_relative './lib/user'
 require './database_connection_setup'
 require 'uri'
 
@@ -14,12 +15,24 @@ class BookmarkManager < Sinatra::Base
 
   enable :sessions, :method_override
   
-
   get '/' do
     'Bookmark Manager'
   end
+  
+  get '/users/new' do
+    erb :'users/new'
+  end
+  
+  post '/users' do
+    user = User.create(email: params[:email], password: params[:password])
+    session[:user_id] = user.id
+    # connection = PG.connect(dbname: 'bookmark_manager_test')
+    # connection.exec_params("INSERT INTO users (email, password) VALUES ($1, $2);", [params[:email], params[:password]])
+    redirect '/bookmarks'
+  end
 
   get '/bookmarks' do
+    @user = User.find(id: session[:user_id])
     @bookmarks = Bookmark.all
     erb :'bookmarks/index'
   end
