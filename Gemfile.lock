@@ -3,6 +3,7 @@ GEM
   specs:
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
+    bcrypt (3.1.18)
     capybara (3.37.1)
       addressable
       matrix
@@ -62,6 +63,7 @@ PLATFORMS
   arm64-darwin-21
 
 DEPENDENCIES
+  bcrypt
   capybara
   pg
   rspec
