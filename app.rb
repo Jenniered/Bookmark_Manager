@@ -4,6 +4,8 @@ require 'sinatra/flash'
 require './lib/bookmark'
 require_relative './lib/comment'
 require_relative './lib/user'
+require_relative './lib/tag'
+require_relative './lib/bookmark_tag'
 require './database_connection_setup'
 require 'uri'
 
@@ -70,6 +72,19 @@ class BookmarkManager < Sinatra::Base
     Comment.create(text: params[:comment], bookmark_id: params[:id])
     # connection = PG.connect(dbname: 'bookmark_manager_test')
     # connection.exec_params("INSERT INTO comments (text, bookmark_id) VALUES ($1, $2);", [params[:comment], params[:id]])
+    redirect '/bookmarks'
+  end
+
+  get '/bookmarks/:id/tags/new' do
+    @bookmark_id = params[:id]
+    erb :'tags/new'
+  end
+
+  post '/bookmarks/:id/tags' do
+    tag = Tag.create(content: params[:tag])
+    BookmarkTag.create(bookmark_id: params[:id], tag_id: tag.id)
+    # connection = PG.connect(dbname: 'bookmark_manager_test')
+    # connection.exec_params("INSERT INTO tags (content) VALUES ($1);", [params[:tag]])
     redirect '/bookmarks'
   end
 
