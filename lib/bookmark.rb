@@ -1,5 +1,6 @@
 require 'pg'
 require_relative 'comment'
+require_relative 'tag'
 
 class Bookmark
   attr_reader :id, :title, :url
@@ -39,7 +40,10 @@ class Bookmark
 
   def comments(comment_class = Comment)
     comment_class.where(bookmark_id: id)
-    # DatabaseConnection.query("SELECT * FROM comments WHERE bookmark_id = $1;", [id])
+  end
+
+  def tags(tag_class = Tag)
+    tag_class.where(bookmark_id: id)
   end
 
   private

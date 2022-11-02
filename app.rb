@@ -83,8 +83,6 @@ class BookmarkManager < Sinatra::Base
   post '/bookmarks/:id/tags' do
     tag = Tag.create(content: params[:tag])
     BookmarkTag.create(bookmark_id: params[:id], tag_id: tag.id)
-    # connection = PG.connect(dbname: 'bookmark_manager_test')
-    # connection.exec_params("INSERT INTO tags (content) VALUES ($1);", [params[:tag]])
     redirect '/bookmarks'
   end
 

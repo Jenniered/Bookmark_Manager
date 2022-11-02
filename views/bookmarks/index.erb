@@ -22,7 +22,7 @@
         <input type="submit" value="Add tag" />
       </form>
       <div>
-        <h2>Comments</h2>
+        <h4>Comments</h4>
         <ul>
           <% bookmark.comments.each do |comment| %>
             <li><%= comment.text %></li>
@@ -30,7 +30,7 @@
         </ul>
       </div>
       <div>
-        <h2>Tags</h2>
+        <h4>Tags</h4>
         <ul>
         <% bookmark.tags.each do |tag| %>
             <li><%= tag.content %></li>
