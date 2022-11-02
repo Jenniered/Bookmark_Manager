@@ -9,11 +9,7 @@ describe Bookmark do
       bookmark_1 = Bookmark.create(url: "http://www.makersacademy.com", title: "Makers")
       bookmark_2 = Bookmark.create(url: "http://www.destroyallsoftware", title: "Destroy All Software")
       bookmark_3 = Bookmark.create(url: "http://www.google.com", title: "Google")
-      # Add the test data
-      # connection.exec("INSERT INTO bookmarks (url) VALUES('http://www.makersacademy.com');")
-      # connection.exec("INSERT INTO bookmarks (url) VALUES('http://www.destroyallsoftware.com');")
-      # connection.exec("INSERT INTO bookmarks (url) VALUES('http://www.google.com');")
-
+      
       bookmarks = Bookmark.all
 
       expect(bookmarks.length).to eq 3
@@ -82,10 +78,8 @@ describe Bookmark do
     it 'calls .where on the Comment class' do
       bookmark = Bookmark.create(title: 'Makers Academy', url: 'http://www.makersacademy.com')
       expect(comment_class).to receive(:where).with(bookmark_id: bookmark.id)
-      # DatabaseConnection.query(
-      #   "INSERT INTO comments (id, text, bookmark_id) VALUES(1, 'Test comment', $1);", [bookmark.id])
+     
       bookmark.comments(comment_class)
-      # expect(comment['text']).to eq 'Test comment'
     end
   end
 
